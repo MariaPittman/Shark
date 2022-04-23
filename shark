@@ -1,0 +1,18 @@
+def create_model(layers,learning_rate):
+  vocab_size = len(stemmed_dict)
+
+  
+  model = Sequential()
+  model.add(Embedding(vocab_size,output_dim=200,input_length=max_sequence_len-1, trainable=True))
+
+  model.add(LSTM(512, return_sequences=True))
+  model.add(LSTM(512))
+
+
+  model.add(Dense(vocab_size, activation='softmax'))
+  print(model.summary())
+  optimizer = Adam(learning_rate)
+
+  model.compile(loss=SparseCategoricalCrossentropy(), optimizer=optimizer, metrics=['accuracy'])
+
+  return model
